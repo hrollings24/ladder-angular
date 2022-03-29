@@ -1,0 +1,24 @@
+<div class="row-padding-top">
+    <h2>Requests</h2>
+</div>
+<div class="row">
+    <div *ngIf="this.currentLadderService.loadedRequests.length > 0">
+        <div class="padding" *ngFor="let user of this.currentLadderService.loadedRequests">
+            <app-user-card [modal]="modal" [user]="user" declineMessage="Decline Request" acceptMessage="Accept Request"></app-user-card>
+        </div>
+    </div>
+    <div *ngIf="this.currentLadderService.loadedRequests.length == 0">
+        <p>
+            This ladder has no requests
+        </p>
+    </div>
+</div>
+<hr/>
+<div class="row-padding-top">
+    <h2>Current Users</h2>
+</div>
+<div class="row">
+    <div class="padding" *ngFor="let user of this.currentLadderService.ladder.players">
+        <app-user-card [modal]="modal" [user]="user" warnMessage="Remove User"></app-user-card>
+    </div>
+</div>

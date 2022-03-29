@@ -1,0 +1,17 @@
+<app-ladder-modal #content (refreshRequired)="refreshLadder()"></app-ladder-modal>
+<app-find-user-modal #findUserModal (refreshRequired)="refreshLadder()"></app-find-user-modal>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<div *ngIf="currentLadderService.ladder !== null">
+    <div class="container">
+        <div class="row-padding">
+            <h1>{{currentLadderService.ladder.name | titlecase}}</h1>
+            <h3 routerLink="..">Back</h3>  
+            <mat-tab-group>
+                <mat-tab label="Settings"><app-main-settings-tab [modal]="modalReference" [findUserModal]="findUserModalReference"></app-main-settings-tab></mat-tab>
+                <mat-tab label="Admins"><app-admin-tab [modal]="modalReference" [findUserModal]="findUserModalReference"></app-admin-tab></mat-tab>
+                <mat-tab label="Users"><app-user-tab [modal]="modalReference" [findUserModal]="findUserModalReference"></app-user-tab></mat-tab>
+                <mat-tab label="Invites"><app-invites-tab [modal]="modalReference" [findUserModal]="findUserModalReference"></app-invites-tab></mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>    
+</div>

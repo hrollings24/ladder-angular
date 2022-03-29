@@ -1,0 +1,30 @@
+<div fxLayout fxLayoutAlign="center center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <mat-card fxFlex="30%">
+                <mat-card-title>Login</mat-card-title>
+                <div *ngIf="!isLoading">
+                <mat-card-content fxLayout="column">
+
+                    <form (ngSubmit)="onLoginSubmitted()" #form="ngForm">
+                        <div class="row">
+                            <input type="text" id="email" class="form-control" ngModel name="email" required email>
+                        </div>
+                        <div class="row">
+                            <input type="text" id="password" class="form-control" ngModel name="password">
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button [disabled]="!form.valid" mat-raised-button color="accent" required password>Sign Up</button>
+                            </div>
+                            <div class="col">
+                                <p (click)="ForgotPassword()">Forgot Password</p>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card-content>
+                </div>
+            </mat-card>
+        </div>
+   </div>
+</div>

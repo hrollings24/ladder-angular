@@ -1,0 +1,15 @@
+<div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex.xs="100%" fxFlex.sm="50%" *ngFor='let element of mainUserService.user.loadedChallenges'>
+        <mat-card class="mat-elevation-z4" (click)="GoToChallenge(element)">
+            <mat-card-header class='mat-card-header-text'>
+                <mat-card-title>Challenge with {{element.otherUser.GetFullName() | titlecase}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-subtitle>{{element.ladderName}}</mat-card-subtitle>
+            <mat-card-content>
+                <p>
+                    {{GetUserFriendlyStatus(element)}}
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

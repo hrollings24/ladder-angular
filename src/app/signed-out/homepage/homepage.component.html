@@ -1,0 +1,7 @@
+
+<div *ngIf="dataLoading">
+    Loading!
+</div>
+<div *ngIf="!dataLoading">
+    <p>{{mainUserService.GetUserData().firstName}}</p>
+</div>

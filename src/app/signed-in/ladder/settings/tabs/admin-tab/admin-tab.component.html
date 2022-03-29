@@ -1,0 +1,11 @@
+<div class="row-padding-top">
+    <h2>Current Admins</h2>
+</div>
+<div class="row">
+    <p (click)="actionAddAdmin()">Add New Admin</p>
+</div>
+<div class="row">
+    <div class="padding" *ngFor="let user of this.currentLadderService.loadedAdmins">
+        <app-user-card [modal]="modal" [user]="user" warnMessage="Remove Admin"></app-user-card>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<mat-card class="mat-elevation-z4 mat-card-padding">
+    <mat-card-content>
+        <div class="row">
+            <div class="col-max">
+                <ngx-avatar class='avatar avatar-nopadding' size="100" name={{user.GetFullName()}} src={{user.picture}}></ngx-avatar>
+            </div>
+            <div class="col">
+                <div class="row-flex">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <mat-card-title>{{user.GetFullName()}}</mat-card-title>
+                                <mat-card-subtitle>{{user.username}}</mat-card-subtitle>
+                            </div>
+                        </div>
+                        <button mat-stroked-button color="warn" (click)="actionWarnChange()" *ngIf="warnMessage">{{warnMessage}}</button>
+                        <button mat-stroked-button color="primary" (click)="actionAcceptChange()" *ngIf="acceptMessage">{{acceptMessage}}</button>
+                        <button mat-stroked-button color="primary" class="button-padding" (click)="actionDeclineChange()" *ngIf="declineMessage">{{declineMessage}}</button>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

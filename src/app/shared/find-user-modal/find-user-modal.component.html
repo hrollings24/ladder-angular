@@ -1,0 +1,26 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Find User</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <h3 *ngIf='modalInfomation.message'>{{modalInfomation.message}}</h3>
+            <div *ngIf='!modalInfomation.message'>
+                <form class="example-form" (ngSubmit)="onSubmit()" #userSearch="ngForm">
+                    <div class="row form-group">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Username</mat-label>
+                            <input [(ngModel)]="searchForUsername" matInput placeholder="" value="" name="username">
+                        </mat-form-field>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngFor="let user of foundUsers">
+                <app-user-adder [user]="user" [action]="modalInfomation.action" (refreshNeeded)="refresh()"></app-user-adder>
+            </div>
+        </div>
+    </div>
+</ng-template>

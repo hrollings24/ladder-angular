@@ -1,0 +1,40 @@
+<app-ladder-modal #content (refreshRequired)="refreshLadder()"></app-ladder-modal>
+<app-find-user-modal #findUserModal (refreshRequired)="refreshLadder()"></app-find-user-modal>
+<div *ngIf="currentLadderService.ladder !== null">
+    <div class="container">
+        <div class="row-padding">
+            <h1>{{currentLadderService.ladder.name | titlecase}}</h1>
+            <h3 *ngIf="mainUserIsAdmin(); else notAdmin" routerLink="settings">Settings</h3>
+            <ng-template #notAdmin (click)="actionInvite()"><h3>Invite</h3>></ng-template>
+            <mat-card class="mat-elevation-z4 mat-card-padding" *ngFor="let user of currentLadderService.ladder.players">
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-max">
+                            <ngx-avatar class='avatar avatar-nopadding' size="100" name={{user.GetFullName()}} src={{user.picture}}></ngx-avatar>
+                        </div>
+                        <div class="col">
+                            <div class="row-flex">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-position">
+                                            <mat-card-title>{{user.position + 1}}</mat-card-title>
+                                        </div>
+                                        <div class="col">
+                                            <mat-card-title>{{user.GetFullName()}}</mat-card-title>
+                                            <mat-card-subtitle>{{user.username}}</mat-card-subtitle>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <p (click)="actionRankText(user)">
+                                            {{getRankText(user)}}
+                                        </p>
+                                    </div>  
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>    
+</div>

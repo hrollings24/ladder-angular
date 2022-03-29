@@ -1,0 +1,18 @@
+<div class="row-padding-top">
+    <h2>Invites</h2>
+</div>
+<div class="row">
+    <p (click)="actionInvite()">Invite New User</p>
+</div>
+<div class="row">
+    <div *ngIf="this.currentLadderService.loadedInvites.length > 0">
+        <div class="padding" *ngFor="let user of this.currentLadderService.loadedInvites">
+            <app-user-card [modal]="modal" [user]="user" warnMessage="Remove Invite"></app-user-card>
+        </div>
+    </div>
+    <div *ngIf="this.currentLadderService.loadedInvites.length == 0">
+        <p>
+            This ladder has no invites awaiting a response
+        </p>
+    </div>
+</div>

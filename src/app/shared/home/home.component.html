@@ -1,0 +1,12 @@
+<div *ngIf="router.url === '/home'">
+    <mat-toolbar class="mat-toolbar">
+        <mat-toolbar-row>
+            <img class="img-fluid" src="https://firebasestorage.googleapis.com/v0/b/challenger-ladder.appspot.com/o/long-01.png?alt=media&token=e694d857-571a-4df5-a24b-cd4add9786e0">
+            <span class="example-spacer"></span>
+            <span routerLink="/signup">Sign Up</span>
+            <span routerLink="/login">Log In</span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</div>
+
+<router-outlet></router-outlet>

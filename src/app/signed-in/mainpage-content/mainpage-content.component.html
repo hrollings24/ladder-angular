@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row">
+        <h1>Home</h1>
+        <h2>{{GetNotificationsText()}}</h2>
+        <h1>Ladders</h1>
+        <h3 *ngIf='NoLadders(); else hasLadders'>You have not joined any Ladders!</h3>
+        <ng-template #hasLadders><app-ladder-cards></app-ladder-cards></ng-template>
+        <h1 class='h1-padding'>Challenges</h1>
+        <h3 *ngIf='NoChallenges(); else hasChallenges'>You have no challenges. Start a challenge within a ladder today!</h3>
+        <ng-template #hasChallenges><app-challenge-cards></app-challenge-cards></ng-template>
+    </div>
+</div>

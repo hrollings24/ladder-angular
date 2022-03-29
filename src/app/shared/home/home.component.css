@@ -1,0 +1,17 @@
+.example-spacer {
+    flex: 1 1 auto;
+    text-align: center;
+}
+  
+.img-fluid {
+    max-width: 10% !important;
+    margin-right: 17% !important;
+}
+
+.flex {
+    display: flex;
+}
+
+.mat-toolbar {
+    background: rgb(37,167,193);
+}

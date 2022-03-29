@@ -1,0 +1,15 @@
+<div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex.xs="100%" fxFlex.sm="50%" *ngFor='let element of ladderAndMessage | keyvalue'>
+        <mat-card class="mat-elevation-z4" [routerLink]="['/main', 'ladder', element.key.url]">
+            <mat-card-header class='mat-card-header-text'>
+                <mat-card-title>{{element.key.name | titlecase}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-subtitle>{{element.key.description}}</mat-card-subtitle>
+            <mat-card-content>
+                <p>
+                    {{element.value}}
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
