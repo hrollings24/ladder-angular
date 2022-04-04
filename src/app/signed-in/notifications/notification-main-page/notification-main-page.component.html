@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row-padding">
+        <h1>Notifications</h1>
+        <mat-card class="mat-elevation-z4 mat-card-padding" *ngFor="let note of this.mainUserService.user.notifications">
+            <mat-card-content>
+                <div class="row-flex">
+                    <div class="col">
+                        <div class="row">
+                            <mat-card-title>{{note.title}}</mat-card-title>
+                        </div>
+                        <div class="row">
+                            <p>
+                                {{note.message}}
+                            </p>
+                        </div> 
+                        <div class="row">
+                            <container-element [ngSwitch]="note.type">
+                                <button mat-stroked-button color="primary" *ngSwitchCase="'message'">OK</button>
+                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'challenge'">Accept Challenge</button>
+                                <button mat-stroked-button class="button-padding" color="warn" *ngSwitchCase="'challenge'">Decline Challenge</button>
+                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'invite'">Accept Invite</button>
+                                <button mat-stroked-button class="button-padding" color="warn" (click)="DeclineNormalInvite(note)" *ngSwitchCase="'invite'">Decline Invite</button>
+                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'admin'">Accept Admin Invite</button>
+                                <button mat-stroked-button class="button-padding" color="warn" *ngSwitchCase="'admin'">Decline Admin Invite</button>
+                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'request'">Go To Requests</button>
+                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'challengeSelected'">View Challenge</button>
+                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'challengeSelected'">OK</button>
+                                <button mat-stroked-button color="primary" *ngSwitchDefault>OK</button>
+                            </container-element>
+                        </div> 
+                    </div> 
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

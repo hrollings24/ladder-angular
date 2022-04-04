@@ -65,6 +65,7 @@ import { ThreeAwaitingAcceptionComponent } from './signed-in/challenge/challenge
 import { FourMainUserToAcceptComponent } from './signed-in/challenge/challenge-page/actions/four-main-user-to-accept/four-main-user-to-accept.component';
 import { FivePlayOutComponent } from './signed-in/challenge/challenge-page/actions/five-play-out/five-play-out.component';
 import { AuthGuard } from './auth-guard.service';
+import { NotificationMainPageComponent } from './signed-in/notifications/notification-main-page/notification-main-page.component';
 
 
 @NgModule({
@@ -95,7 +96,8 @@ import { AuthGuard } from './auth-guard.service';
     TwoMainUserToConfirmComponent,
     ThreeAwaitingAcceptionComponent,
     FourMainUserToAcceptComponent,
-    FivePlayOutComponent
+    FivePlayOutComponent,
+    NotificationMainPageComponent
   ],
   imports: [
     BrowserModule,

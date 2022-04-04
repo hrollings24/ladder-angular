@@ -10,6 +10,7 @@ import { HomepageComponent } from './signed-out/homepage/homepage.component';
 import { LoginComponent } from './signed-out/login/login.component';
 import { SignUpComponent } from './signed-out/sign-up/sign-up.component';
 import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/compat/auth-guard';
+import { NotificationMainPageComponent } from './signed-in/notifications/notification-main-page/notification-main-page.component';
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo(['/home']);
 
@@ -19,6 +20,10 @@ const routes: Routes = [
   {path: 'home', component: HomepageComponent},
   {path: 'main', component: MainpageComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToHome },
     children: [
+      {
+        path: 'notifications',
+        component: NotificationMainPageComponent,
+      },
       {
         path: 'ladder/:id/settings',
         component: SettingsComponent,

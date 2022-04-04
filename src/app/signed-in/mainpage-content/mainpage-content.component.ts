@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MainUserService } from 'src/app/SDK/users/main-user.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { MainUserService } from 'src/app/SDK/users/main-user.service';
 export class MainpageContentComponent implements OnInit {
 
     constructor(
-        private mainUserService: MainUserService
+        private mainUserService: MainUserService,
+        private router: Router
     ) 
     { }
 
@@ -25,6 +27,13 @@ export class MainpageContentComponent implements OnInit {
         }
         else{
             return `You have ${this.mainUserService.user.notifications.length} notifications`
+        }
+    }
+
+    public NotificationsClicked()
+    {
+        if (this.mainUserService.user.notifications.length != 0){
+            this.router.navigate(['main', 'notifications']);
         }
     }
 

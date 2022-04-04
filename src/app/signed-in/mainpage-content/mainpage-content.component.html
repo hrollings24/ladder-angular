@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <h1>Home</h1>
-        <h2>{{GetNotificationsText()}}</h2>
+        <h2 (click)="NotificationsClicked()">{{GetNotificationsText()}}</h2>
         <h1>Ladders</h1>
         <h3 *ngIf='NoLadders(); else hasLadders'>You have not joined any Ladders!</h3>
         <ng-template #hasLadders><app-ladder-cards></app-ladder-cards></ng-template>
