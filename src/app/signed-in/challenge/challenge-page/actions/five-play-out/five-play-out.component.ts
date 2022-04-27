@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ChallengeHandlerService } from 'src/app/SDK/challenge/challenge-handler';
 import { MainUserService } from 'src/app/SDK/users/main-user.service';
 import { AppStateService } from 'src/app/shared/app-state.service';
@@ -17,23 +17,15 @@ export class FivePlayOutComponent implements OnInit {
     private appStateService: AppStateService,
     public mainUserService: MainUserService) { }
 
+    @Output() refreshRequired: EventEmitter<boolean> = new EventEmitter();
+
   ngOnInit(): void {
   }
 
-  RefreshUser()
-  {
-      this.mainUserService.refresh().subscribe({
-          complete: () => 
-          { 
-              this.appStateService.stopLoading()
-          },
-          error: (error) => 
-          { 
-              this.appStateService.stopLoading()
-              this.appStateService.openSnackBar(error, "Close")
-          },
-      });
-  }
+    refresh()
+    {
+        this.refreshRequired.emit(true);
+    }
 
   AddWinner(winnerUserId: String)
   {
@@ -46,7 +38,7 @@ export class FivePlayOutComponent implements OnInit {
       this.challengeHandlerService.AddWinner(JSON.parse(data)).then((result) => {
           if (result.length == 0)
           {
-              this.RefreshUser()
+              this.refresh()
           }
           else
           {

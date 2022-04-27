@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NotificationHandlerService } from 'src/app/SDK/notifications/notification-handler';
 import { MainUser } from 'src/app/SDK/users/main-user.model';
 import { MainUserService } from 'src/app/SDK/users/main-user.service';
@@ -18,22 +18,10 @@ export class TwoMainUserToConfirmComponent implements OnInit {
     private appStateService: AppStateService,
     private mainUserService: MainUserService) { }
 
-  ngOnInit(): void {
-  }
+    @Output() refreshRequired: EventEmitter<boolean> = new EventEmitter();
 
-  RefreshUser()
-  {
-      this.mainUserService.refresh().subscribe({
-          complete: () => 
-          { 
-              this.appStateService.stopLoading()
-          },
-          error: (error) => 
-          { 
-              this.appStateService.stopLoading()
-              this.appStateService.openSnackBar(error, "Close")
-          },
-      });
+    
+  ngOnInit(): void {
   }
 
   AcceptChallenge()
@@ -44,8 +32,8 @@ export class TwoMainUserToConfirmComponent implements OnInit {
       this.notificationHandlerService.AcceptChallenge(this.currentChallengeService.challenge.reference.id).then((result) => {
           if (result.length == 0)
           {
-              this.RefreshUser()
-          }
+            this.refreshRequired.emit(true);
+        }
           else
           {
               this.appStateService.openSnackBar("ERROR: " + result, "close")
@@ -62,8 +50,8 @@ export class TwoMainUserToConfirmComponent implements OnInit {
       this.notificationHandlerService.DeclineChallenge(this.currentChallengeService.challenge.reference.id).then((result) => {
           if (result.length == 0)
           {
-              this.RefreshUser()
-          }
+            this.refreshRequired.emit(true);
+        }
           else
           {
               this.appStateService.openSnackBar("ERROR: " + result, "close")

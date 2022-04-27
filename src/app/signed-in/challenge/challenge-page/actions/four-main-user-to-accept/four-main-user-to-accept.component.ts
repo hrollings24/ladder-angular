@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ChallengeHandlerService } from 'src/app/SDK/challenge/challenge-handler';
 import { NotificationHandlerService } from 'src/app/SDK/notifications/notification-handler';
 import { MainUserService } from 'src/app/SDK/users/main-user.service';
@@ -18,6 +18,9 @@ export class FourMainUserToAcceptComponent implements OnInit {
     private appStateService: AppStateService,
     private mainUserService: MainUserService) { }
 
+    @Output() refreshRequired: EventEmitter<boolean> = new EventEmitter();
+
+
   ngOnInit(): void {
   }
 
@@ -26,7 +29,17 @@ export class FourMainUserToAcceptComponent implements OnInit {
       this.mainUserService.refresh().subscribe({
           complete: () => 
           { 
-              this.appStateService.stopLoading()
+              this.currentChallengeService.RefreshChallenge().subscribe({
+                  complete: () =>
+                  {
+                    this.refreshRequired.emit(true);
+                  },
+                  error: (error) =>
+                  {
+                    this.appStateService.stopLoading()
+                    this.appStateService.openSnackBar(error, "Close")
+                  }
+              })
           },
           error: (error) => 
           { 
@@ -42,6 +55,7 @@ export class FourMainUserToAcceptComponent implements OnInit {
 
       //invite user to ladder
       this.challengeHandlerService.ConfirmWinner(this.currentChallengeService.challenge.reference.id).then((result) => {
+          console.log(result)
           if (result.length == 0)
           {
               this.RefreshUser()
@@ -70,6 +84,18 @@ export class FourMainUserToAcceptComponent implements OnInit {
               this.appStateService.stopLoading()
           }
       })
+  }
+
+  GetWinnerName(): string
+  {
+      if (this.currentChallengeService.challenge.winner == this.currentChallengeService.challenge.otherUser.userID)
+      {
+        return this.currentChallengeService.challenge.otherUser.GetFullName()
+      }
+      else
+      {
+          return this.mainUserService.user.GetFullName()
+      }
   }
 
 

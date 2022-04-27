@@ -1,13 +1,15 @@
-<div class="container" *ngIf="currentChallengeService.challenge">
+<div class="container" >
     <div class="row-padding">
-        <div class="row">
-            <h1>Challenge with {{currentChallengeService.challenge.otherUser.GetFullName() | titlecase}}</h1>
+        <div class="row" *ngIf="currentChallengeService.challenge">
+            <div class="row">
+                <h1>Challenge with {{currentChallengeService.challenge.otherUser.GetFullName() | titlecase}}</h1>
+            </div>
+            <div class="row">
+                <h2>{{currentChallengeService.challenge.ladderName | titlecase}}</h2>
+            </div>
         </div>
         <div class="row">
-            <h2>{{currentChallengeService.challenge.ladderName | titlecase}}</h2>
+            <ng-template #dynamicAction></ng-template>
         </div>
-        <div class="row">
-        </div>
-        <ng-template #dynamicAction></ng-template>
     </div>
 </div>

@@ -42,7 +42,7 @@ export class ChallengeService{
                                 result.data()!["user1"],
                                 result.data()!["user2"],
                                 result.data()!["winner"],
-                                result.data()!["winnerSelectedBy"],
+                                result.data()!["winnerselectedby"],
                                 ladderUser
                             ))
                         }
@@ -98,11 +98,11 @@ export class ChallengeService{
         {
             return challenge.otherUser.GetFullName() + " has selected a winner! You must confirm the winner to complete the challenge."
         }
-        else if (challenge.status == "Awaiting Response" && challenge.user1 == mainUserId)
+        else if (challenge.status == "Awaiting Response" && challenge.user2 == mainUserId)
         {
             return "This challenge is waiting for " + challenge.otherUser.GetFullName() + " to respond."
         }
-        else if (challenge.status == "Awaiting Response" && challenge.user2 == mainUserId)
+        else if (challenge.status == "Awaiting Response" && challenge.user1 == mainUserId)
         {
             return "You have a new challenge with " + challenge.otherUser.GetFullName() + ". You need to respond to the challenge."
         }
