@@ -1,1 +1,3 @@
-<p>five-play-out works!</p>
+<p>Select a winner for your challenge!</p>
+<button mat-stroked-button class="button-padding" color="primary" (click)="AddWinner(this.currentChallengeService.challenge.otherUser.userID)">{{this.currentChallengeService.challenge.otherUser.GetFullName()}}</button>
+<button mat-stroked-button class="button-padding" color="primary" (click)="AddWinner(this.mainUserService.user.userID)">{{this.mainUserService.user.GetFullName()}}</button>

@@ -36,6 +36,7 @@ export class NotificationHandlerService{
             requestCall(data).subscribe({
                 complete: () => 
                 { 
+                    console.log('decline success')
                     resolve("")
                 },
                 error: (error) => 
@@ -83,11 +84,11 @@ export class NotificationHandlerService{
     }
 
     //data = [toUserID, message, fromUserID, ladderID, challengeID]
-    public DeclineChallenge(data: {toUserID: String, fromUserID: String, ladderID: String, challengeID: String}): Promise<string>
+    public DeclineChallenge(challengeID): Promise<string>
     {
         return new Promise<string>((resolve) => {
             const requestCall = this.fns.httpsCallable('declineChallenge'); 
-            requestCall(data).subscribe({
+            requestCall(challengeID).subscribe({
                 complete: () => 
                 { 
                     resolve("")
@@ -100,12 +101,12 @@ export class NotificationHandlerService{
         })
     }
 
-    //data = [toUserID, message, fromUserID, ladderID, challengeID]
-    public AcceptChallenge(data: {toUserID: String, message: string, fromUserID: String, ladderID: String, challengeID: String}): Promise<string>
+    //data = challengeID
+    public AcceptChallenge(ChallengeID): Promise<string>
     {
         return new Promise<string>((resolve) => {
             const requestCall = this.fns.httpsCallable('acceptChallenge'); 
-            requestCall(data).subscribe({
+            requestCall(ChallengeID).subscribe({
                 complete: () => 
                 { 
                     resolve("")

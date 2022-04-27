@@ -121,7 +121,7 @@ export class LadderHandlerService{
     }
 
     //data = [toUser, fromUser, ladderID, message, ladderName]
-    public CreateChallenge(data: {toUser: string, ladderId: string, message: string, fromUser: string, ladderName: string}): Promise<string>
+    public CreateChallenge(data: {userIDToChallenge: string, ladderId: string}): Promise<string>
     {
         return new Promise<string>((resolve) => {
             const acceptRequestCall = this.fns.httpsCallable('createChallenge'); 

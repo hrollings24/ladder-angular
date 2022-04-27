@@ -5,7 +5,7 @@
         <div class="row-padding">
             <h1>{{currentLadderService.ladder.name | titlecase}}</h1>
             <h3 *ngIf="mainUserIsAdmin(); else notAdmin" routerLink="settings">Settings</h3>
-            <ng-template #notAdmin (click)="actionInvite()"><h3>Invite</h3>></ng-template>
+            <ng-template #notAdmin><h3 (click)="actionInvite()"> Invite</h3></ng-template>
             <mat-card class="mat-elevation-z4 mat-card-padding" *ngFor="let user of currentLadderService.ladder.players">
                 <mat-card-content>
                     <div class="row">

@@ -71,6 +71,7 @@ export class ChallengeService{
                 .then((result) => {
                     amountResolved++
                     observer.next(result)
+                    console.log(amountResolved)
                     if (amountResolved == references.length)
                     {
                         observer.complete()
@@ -81,6 +82,10 @@ export class ChallengeService{
                     observer.error(() => new Error(error))
                 })
             })
+            if (references.length == 0)
+            {
+                observer.complete()
+            }
         })
     }
 

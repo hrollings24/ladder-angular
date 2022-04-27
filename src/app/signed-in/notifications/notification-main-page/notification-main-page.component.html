@@ -15,16 +15,15 @@
                         </div> 
                         <div class="row">
                             <container-element [ngSwitch]="note.type">
-                                <button mat-stroked-button color="primary" *ngSwitchCase="'message'">OK</button>
-                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'challenge'">Accept Challenge</button>
-                                <button mat-stroked-button class="button-padding" color="warn" *ngSwitchCase="'challenge'">Decline Challenge</button>
-                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'invite'">Accept Invite</button>
+                                <button mat-stroked-button color="primary" (click)="RemoveNotification(note)" *ngSwitchCase="'message'">OK</button>
+                                <button mat-stroked-button class="button-padding" color="primary" (click)="AcceptChallenge(note)" *ngSwitchCase="'challenge'">Accept Challenge</button>
+                                <button mat-stroked-button class="button-padding" color="warn" (click)="DeclineChallenge(note)" *ngSwitchCase="'challenge'">Decline Challenge</button>
+                                <button mat-stroked-button class="button-padding" color="primary" (click)="AcceptNormalInvite(note)" *ngSwitchCase="'invite'">Accept Invite</button>
                                 <button mat-stroked-button class="button-padding" color="warn" (click)="DeclineNormalInvite(note)" *ngSwitchCase="'invite'">Decline Invite</button>
-                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'admin'">Accept Admin Invite</button>
-                                <button mat-stroked-button class="button-padding" color="warn" *ngSwitchCase="'admin'">Decline Admin Invite</button>
+                                <button mat-stroked-button class="button-padding" color="primary" (click)="AcceptAdminInvite(note)" *ngSwitchCase="'admin'">Accept Admin Invite</button>
+                                <button mat-stroked-button class="button-padding" color="warn" (click)="DeclineAdminInvite(note)" *ngSwitchCase="'admin'">Decline Admin Invite</button>
                                 <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'request'">Go To Requests</button>
                                 <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'challengeSelected'">View Challenge</button>
-                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'challengeSelected'">OK</button>
                                 <button mat-stroked-button color="primary" *ngSwitchDefault>OK</button>
                             </container-element>
                         </div> 

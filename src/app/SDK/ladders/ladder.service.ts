@@ -60,6 +60,10 @@ export class LadderService{
                     observer.error(() => new Error(error))
                 })
             })
+            if (references.length == 0)
+            {
+                observer.complete()
+            }
         })
     }
 

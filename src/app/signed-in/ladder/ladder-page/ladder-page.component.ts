@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, ElementRef, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, DocumentData, DocumentReference } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, throwError } from 'rxjs';
@@ -33,7 +33,7 @@ export class LadderPageComponent extends BaseLadderComponent implements OnInit {
         currentLadderService: CurrentLadderService,
         appState: AppStateService,
         ladderService: LadderService,
-        private router: Router
+        private router: Router,
     ) { 
         super(ladderService)
         config.backdrop = 'static';
@@ -107,31 +107,26 @@ export class LadderPageComponent extends BaseLadderComponent implements OnInit {
         }
         else if (text == "Start a Challenge")
         {
-            //data = [toUser, fromUser, ladderID, message, ladderName]
-
-            var data = JSON.stringify({"toUser": user.userID,
-            "ladderID": this.currentLadderService.ladder.reference.id,
-            "ladderName": this.currentLadderService.ladder.name,
-            "fromUser": this.mainUserService.user.userID,
-            "message": this.mainUserService.user.GetFullName() + " has started a challenge with you in " + this.currentLadderService.ladder.name})
+            var data = JSON.stringify({"userIdToChallenge": user.userID,
+            "ladderId": this.currentLadderService.ladder.reference.id})
             this.openModal(text, data)
         }
     }
 
     openModal(title: string, data: string)
     {
-        console.log(this.mainUserService)
         this.modalReference.openLadderRanks(title, data)
     }
 
     openFindUserModal(operation: string)
     {
-        console.log(this.mainUserService)
+        console.log(operation)
         this.findUserModalReference.openFindModal(operation)
     }
 
     actionInvite()
     {
+        console.log("yo")
         //Check ladder permissions
         this.openFindUserModal("inviteUser")
     }

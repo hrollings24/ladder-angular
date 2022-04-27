@@ -47,6 +47,7 @@ export class MainUserService{
                                     complete: () => 
                                     { 
                                         isComplete++
+                                        console.log(isComplete)
                                         if (isComplete == 2)
                                         {
                                             observer.complete()
@@ -66,6 +67,7 @@ export class MainUserService{
                                     complete: () => 
                                     { 
                                         isComplete++
+                                        console.log(isComplete)
                                         if (isComplete == 2)
                                         {
                                             observer.complete()
