@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row-padding">
+        <h1>Find Ladders</h1>
+        <form class="example-form" (ngSubmit)="onSubmit()" #userSearch="ngForm">
+            <div class="row form-group">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Ladder Name</mat-label>
+                    <input [(ngModel)]="searchForLadderName" matInput placeholder="" value="" name="username">
+                </mat-form-field>
+            </div>
+        </form>
+        <div class="row">
+            <div *ngFor="let ladder of foundLadders">
+                <app-ladder-adder [ladder]="ladder"></app-ladder-adder>
+            </div>
+            <div class="div" *ngIf="noLaddersFound">
+                No ladders were found
+            </div>
+        </div>
+    </div>
+</div>

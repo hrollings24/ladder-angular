@@ -66,6 +66,8 @@ import { FourMainUserToAcceptComponent } from './signed-in/challenge/challenge-p
 import { FivePlayOutComponent } from './signed-in/challenge/challenge-page/actions/five-play-out/five-play-out.component';
 import { AuthGuard } from './auth-guard.service';
 import { NotificationMainPageComponent } from './signed-in/notifications/notification-main-page/notification-main-page.component';
+import { FindLadderComponent } from './signed-in/find-ladder/find-ladder.component';
+import { LadderAdderComponent } from './signed-in/find-ladder/ladder-adder/ladder-adder.component';
 
 
 @NgModule({
@@ -97,7 +99,9 @@ import { NotificationMainPageComponent } from './signed-in/notifications/notific
     ThreeAwaitingAcceptionComponent,
     FourMainUserToAcceptComponent,
     FivePlayOutComponent,
-    NotificationMainPageComponent
+    NotificationMainPageComponent,
+    FindLadderComponent,
+    LadderAdderComponent
   ],
   imports: [
     BrowserModule,
