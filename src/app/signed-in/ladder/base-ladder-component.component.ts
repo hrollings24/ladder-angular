@@ -1,6 +1,6 @@
 import { Component, OnChanges, SimpleChanges, ViewChild } from "@angular/core";
 import { AngularFirestore, DocumentReference } from "@angular/fire/compat/firestore";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Observable, Subscription, throwError } from "rxjs";
 import { Ladder } from "src/app/SDK/ladders/ladder.model";
@@ -17,6 +17,8 @@ import { LadderModalComponent } from "./ladder-modal/ladder-modal.component";
     template: ''
   })
 export abstract class BaseLadderComponent{
+
+    goHome: boolean;
 
     @ViewChild(LadderModalComponent, { read: LadderModalComponent }) 
     public modalReference: LadderModalComponent;
@@ -36,7 +38,8 @@ export abstract class BaseLadderComponent{
     public targetLoadedCount: number
     public appState: AppStateService
 
-    constructor(private ladderService: LadderService) {}
+    constructor(private ladderService: LadderService,
+        public router: Router) {}
 
     setup() {
         this.routeSub = this.route.params.subscribe(params => {
@@ -53,24 +56,44 @@ export abstract class BaseLadderComponent{
 
     loadUsers(){
         var loadedUserCount = 0
-        this.currentLadderService.ladder.positions.forEach((userId, index) => {
-            const userRef: DocumentReference<any> = this.afs.doc(`users/${userId}`).ref
-            this.ladderUserService.GetLadderUserByReference(userRef, this.mainUserService.user.userID, index)
-            .then((ladderUser) => {
-                this.currentLadderService.ladder.players.push(ladderUser)
-                loadedUserCount++
-                if (loadedUserCount == this.currentLadderService.ladder.positions.length)
-                {
-                    this.loadedCount++
-                    if (this.loadedCount == this.targetLoadedCount)
+        if (this.currentLadderService.ladder.positions.length > 0)
+        {
+            this.currentLadderService.ladder.positions.forEach((userId, index) => {
+                const userRef: DocumentReference<any> = this.afs.doc(`users/${userId}`).ref
+                this.ladderUserService.GetLadderUserByReference(userRef, this.mainUserService.user.userID, index)
+                .then((ladderUser) => {
+                    this.currentLadderService.ladder.players.push(ladderUser)
+                    loadedUserCount++
+                    if (loadedUserCount == this.currentLadderService.ladder.positions.length)
                     {
-                        this.appState.stopLoading();
+                        this.loadedCount++
+                        if (this.loadedCount == this.targetLoadedCount)
+                        {
+                            this.appState.stopLoading();
+                        }
                     }
-                }
-            })
-            .catch((error) => { 
-                throwError(() => new Error(error))
-            })
-        });
+                })
+                .catch((error) => { 
+                    this.appState.stopLoading();
+                    throwError(() => new Error(error))
+                })
+            });
+        }
+        else
+        {
+            this.appState.stopLoading();
+        }
+
+    }
+
+    public finishedLoading()
+    {
+        console.log("in mehtod")
+        this.appState.stopLoading();
+        console.log(this.goHome)
+        if (this.goHome)
+        {
+            this.router.navigate(['main']);
+        }
     }
 }

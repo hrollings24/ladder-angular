@@ -138,4 +138,40 @@ export class LadderHandlerService{
         })
     }
 
+
+    //data = [toUser, fromUser, ladderID, message, ladderName]
+    public CreateLadder(data: {permission: string, name: string, requests: string, jump: string, includeMe: boolean, description: string, currentUserId: string}): Promise<string>
+    {
+        return new Promise<string>((resolve) => {
+            const acceptRequestCall = this.fns.httpsCallable('createLadder'); 
+            acceptRequestCall(data).subscribe({
+                complete: () => 
+                { 
+                    resolve("")
+                },
+                error: (error) => 
+                { 
+                    resolve(error.message)
+                },
+            });
+        })
+    }
+
+    public DeleteLadder(data: {ladderID: string}): Promise<string>
+    {
+        return new Promise<string>((resolve) => {
+            const acceptRequestCall = this.fns.httpsCallable('deleteLadder'); 
+            acceptRequestCall(data).subscribe({
+                complete: () => 
+                { 
+                    resolve("")
+                },
+                error: (error) => 
+                { 
+                    resolve(error.message)
+                },
+            });
+        })
+    }
+
 }

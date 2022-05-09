@@ -104,6 +104,15 @@ export class LadderModalComponent {
                 'data': data
             }
         }
+        else if (setting == "delete")
+        {
+            this.modalInfomation = {
+                'title': 'Delete Ladder', 
+                'message': 'Please confirm you wish to delete this ladder',
+                'showConfirm': true,
+                'data': data
+            }
+        }
         else if (setting == "Remove User")
         {
             this.modalInfomation = {
@@ -276,6 +285,21 @@ export class LadderModalComponent {
         {
             //get reference to form
             
+        }
+        else if (title == "Delete Ladder")
+        {
+            this.ladderHandler.DeleteLadder(JSON.parse(data)).then((result) => {
+                if (result.length == 0)
+                {
+                    //refresh data
+                    this.refreshRequired.emit(false);
+                }
+                else
+                {
+                    this.appState.openSnackBar(result, "close")
+                    this.appState.stopLoading()
+                }
+            })
         }
     }
 }

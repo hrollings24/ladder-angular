@@ -54,11 +54,13 @@ export class ChallengePageComponent implements OnInit, AfterViewInit {
             var ref = this.afs.doc(`challenge/${challengeID}`).ref
             this.challengeService.GetChallengeByReference(ref, this.mainUserService.user.userID)
             .then((result) => {
+                console.log(result)
                 this.currentChallengeService.challenge = result
                 this.showChallengeFunction()
                 this.appStateService.stopLoading()
             })
             .catch((error) => { 
+                console.log(error)
                 this.appStateService.stopLoading()
                 this.appStateService.openSnackBar(error, "Close")
             })
@@ -74,6 +76,7 @@ export class ChallengePageComponent implements OnInit, AfterViewInit {
                 },
                 error: (error) =>
                 {
+                    console.log(error)
                     this.appStateService.stopLoading()
                     this.appStateService.openSnackBar(error, "Close")
                 }
@@ -93,8 +96,9 @@ export class ChallengePageComponent implements OnInit, AfterViewInit {
                     },
                     error: (error) =>
                     {
-                    this.appStateService.stopLoading()
-                    this.appStateService.openSnackBar(error, "Close")
+                        console.log(error)
+                        this.appStateService.stopLoading()
+                        this.appStateService.openSnackBar(error, "Close")
                     }
                 })
             },

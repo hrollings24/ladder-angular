@@ -33,9 +33,9 @@ export class LadderPageComponent extends BaseLadderComponent implements OnInit {
         currentLadderService: CurrentLadderService,
         appState: AppStateService,
         ladderService: LadderService,
-        private router: Router,
+        router: Router,
     ) { 
-        super(ladderService)
+        super(ladderService, router)
         config.backdrop = 'static';
         config.keyboard = false;
         this.ladderUserService = ladderUserService

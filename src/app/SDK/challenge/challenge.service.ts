@@ -18,6 +18,10 @@ export class ChallengeService{
         return new Promise<Challenge>((resolve) => {
             reference.get()
             .then((result) => {
+                if (!result.exists)
+                {
+                    throw "Challenge does not exist"
+                }
                 if (result != null) 
                 {
                     //GET THE LADDERUSER THAT ISN'T ME
@@ -56,6 +60,7 @@ export class ChallengeService{
                 }
                 throwError(() => new Error('Could not get challenge data'))
             }).catch((error) => {
+                console.log(error)
                 throwError(() => new Error(error))
             })
         })

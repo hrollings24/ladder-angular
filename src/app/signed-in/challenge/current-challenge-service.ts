@@ -20,10 +20,12 @@ export class CurrentChallengeService{
         return new Observable(observer => {
             this.challengeService.GetChallengeByReference(this.challenge.reference, this.mainUserService.user.userID)
             .then((result) => {
+                console.log(result)
                 this.challenge = result
                 observer.complete()
             })
             .catch((error) => { 
+                console.log(error)
                 observer.error(() => new Error(error))
             })
         })
