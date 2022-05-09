@@ -2,35 +2,39 @@
  <div class="container">
     <div class="row-padding">
         <h1>Create Ladder</h1>
-        <form class="example-form">
+        <form class="example-form" (ngSubmit)="CreateLadder(f)" #f="ngForm">
             <div class="row">
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Ladder Name</mat-label>
-                    <input matInput placeholder="" value="">
+                    <input matInput placeholder="" value="" ngModel name="name" required  minlength="8" #name="ngModel">
                 </mat-form-field>
+                <span class="help-block" *ngIf="!name.valid && name.touched && name.errors?.['minlength']">Name must be at least 8 characters long</span>
             </div>
             <div class="row">
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Ladder Description</mat-label>
-                    <input matInput placeholder="" value="">
+                    <input id="description" matInput placeholder="" value="" ngModel name="description" required  minlength="32" #description="ngModel">
                 </mat-form-field>
+                <span class="help-block" *ngIf="!description.valid && description.touched && description.errors?.['minlength']">Description must be at least 32 characters long</span>
             </div>
             <div class="row">
                 <div class="col">
                     <mat-form-field appearance="fill">
                         <mat-label>Jump</mat-label>
-                        <input matInput placeholder="" value="">
+                        <input type="number" min="1" max="100" matInput placeholder="" value="" ngModel name="jump" required #jump="ngModel">
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-icon aria-hidden="false" matTooltip="The amount of positions a user is able to progress up the ladder in one go">info</mat-icon>
                 </div>
+                <span class="help-block" *ngIf="!jump.valid && jump.touched && jump.errors?.['min']">Jump must be at least 1</span>
+                <span class="help-block" *ngIf="!jump.valid && jump.touched && jump.errors?.['max']">Jump is limited to 100</span>
             </div>
             <div class="row">
                 <div class="col">
                     <mat-form-field appearance="fill">
                         <mat-label>Permissions</mat-label>
-                        <mat-select>
+                        <mat-select ngModel name="permission" required>
                             <mat-option *ngFor="let permission of permissions" [value]="permission">
                             {{permission}}
                             </mat-option>
@@ -43,14 +47,14 @@
             </div> 
             <div class="row">
                 <div class="col">
-                    <mat-checkbox color="primary">Include Yourself</mat-checkbox>
+                    <mat-checkbox color="primary" ngModel name="c">Include Yourself</mat-checkbox>
                 </div>
                 <div class="col">
                     <mat-icon aria-hidden="false" matTooltip="Tick if you want to participate in the ladder as well as be an admin">info</mat-icon>
                 </div>
             </div>
             <div class="row-padding">
-                <button mat-flat-button color="primary">Create Ladder</button>
+                <button mat-flat-button color="primary" [disabled]="!f.valid">Create Ladder</button>
             </div>
         </form>
     </div>
