@@ -176,6 +176,21 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
 
             //get new valie
         }
+        else if (title == "Delete Ladder")
+        {
+            this.ladderHandler.DeleteLadder(JSON.parse(data)).then((result) => {
+                if (result.length == 0)
+                {
+                    //refresh data
+                    this.refreshRequired.emit(false);
+                }
+                else
+                {
+                    this.appState.openSnackBar(result, "close")
+                    this.appState.stopLoading()
+                }
+            })
+        }
     }
 
     private showChallengeFunction()
