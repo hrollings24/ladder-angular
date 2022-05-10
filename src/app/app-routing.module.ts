@@ -11,6 +11,7 @@ import { LoginComponent } from './signed-out/login/login.component';
 import { SignUpComponent } from './signed-out/sign-up/sign-up.component';
 import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/compat/auth-guard';
 import { NotificationMainPageComponent } from './signed-in/notifications/notification-main-page/notification-main-page.component';
+import { FindLadderComponent } from './signed-in/find-ladder/find-ladder.component';
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo(['/home']);
 
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'notifications',
         component: NotificationMainPageComponent,
+      },
+      {
+        path: 'find',
+        component: FindLadderComponent,
       },
       {
         path: 'ladder/:id/settings',

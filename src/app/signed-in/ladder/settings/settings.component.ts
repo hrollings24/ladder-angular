@@ -22,6 +22,8 @@ import { AppStateService } from 'src/app/shared/app-state.service';
 })
 export class SettingsComponent extends BaseLadderComponent implements OnInit{
     
+    public tabIndex = 0;
+
 
     constructor(
         route: ActivatedRoute,
@@ -55,6 +57,17 @@ export class SettingsComponent extends BaseLadderComponent implements OnInit{
         this.loadAdmins()
         this.loadRequests()
         this.loadInvites()
+
+        this.route.queryParams
+            .subscribe(params => {
+            console.log(params);
+            if (params['tab'] != undefined)
+            {
+                this.tabIndex = params['tab'];
+            }
+            console.log(this.tabIndex);
+            }
+        );
     }
 
     ngOnDestroy() {

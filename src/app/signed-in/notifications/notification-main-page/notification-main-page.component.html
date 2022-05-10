@@ -22,8 +22,10 @@
                                 <button mat-stroked-button class="button-padding" color="warn" (click)="DeclineNormalInvite(note)" *ngSwitchCase="'invite'">Decline Invite</button>
                                 <button mat-stroked-button class="button-padding" color="primary" (click)="AcceptAdminInvite(note)" *ngSwitchCase="'admin'">Accept Admin Invite</button>
                                 <button mat-stroked-button class="button-padding" color="warn" (click)="DeclineAdminInvite(note)" *ngSwitchCase="'admin'">Decline Admin Invite</button>
-                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'request'">Go To Requests</button>
-                                <button mat-stroked-button class="button-padding" color="primary" *ngSwitchCase="'challengeSelected'">View Challenge</button>
+                                <button mat-stroked-button class="button-padding" color="primary" (click)="GoToRequests(note)" *ngSwitchCase="'request'">Go To Requests</button>
+                                <button mat-stroked-button class="button-padding" color="primary" (click)="ViewChallenge(note)" *ngSwitchCase="'challengeSelected'">View Challenge</button>
+                                <button mat-stroked-button color="primary" (click)="RemoveNotification(note)" *ngSwitchCase="'challengeSelected'">OK</button>
+                                <button mat-stroked-button color="primary" (click)="RemoveNotification(note)" *ngSwitchCase="'request'">OK</button>
                                 <button mat-stroked-button color="primary" *ngSwitchDefault>OK</button>
                             </container-element>
                         </div> 

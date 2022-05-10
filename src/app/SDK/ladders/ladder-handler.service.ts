@@ -139,6 +139,29 @@ export class LadderHandlerService{
     }
 
 
+    public RequestToJoinLadder(data: {userID: string, ladderID: string}): Promise<string>
+    {
+        return new Promise<string>((resolve) => {
+            var resultReturn = ""
+            const acceptRequestCall = this.fns.httpsCallable('requestToJoinALadder'); 
+            acceptRequestCall(data).subscribe({
+                next: (result) => 
+                    {                                 
+                        resultReturn = result.message
+                    },
+                complete: () => 
+                { 
+                    resolve(resultReturn)
+                },
+                error: (error) => 
+                { 
+                    resolve(error.message)
+                },
+            });
+        })
+    }
+
+
     //data = [toUser, fromUser, ladderID, message, ladderName]
     public CreateLadder(data: {permission: string, name: string, requests: string, jump: string, includeMe: boolean, description: string, currentUserId: string}): Promise<string>
     {

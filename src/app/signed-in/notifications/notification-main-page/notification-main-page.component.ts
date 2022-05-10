@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { LadderService } from 'src/app/SDK/ladders/ladder.service';
 import { NotificationHandlerService } from 'src/app/SDK/notifications/notification-handler';
 import { SystemNotification } from 'src/app/SDK/notifications/system-notification.model';
 import { MainUserService } from 'src/app/SDK/users/main-user.service';
@@ -19,7 +20,8 @@ export class NotificationMainPageComponent implements OnInit {
         private router: Router,
         private appStateService: AppStateService,
         private notificationHandlerService: NotificationHandlerService,
-        private afs: AngularFirestore
+        private afs: AngularFirestore,
+        private ladderService: LadderService
     ) { }
 
     ngOnInit(): void {
@@ -29,7 +31,24 @@ export class NotificationMainPageComponent implements OnInit {
 
     public ViewChallenge(notification)
     {
-        this.router.navigate(['main', 'challenge', notification.id]);
+        console.log(notification)
+        this.router.navigate(['main', 'challenge', notification.challengeRef.id]);
+    }
+
+    public GoToRequests(notification: SystemNotification)
+    {
+        console.log(notification)
+        this.ladderService.GetLadderByReference(notification.ladderRef)
+                .then((result) => {
+                    this.router.navigate(['main', 'ladder', result.url, 'settings'],
+                    { queryParams: { tab: 2 } });
+                })
+                .catch((error) => { 
+
+                    this.appStateService.openSnackBar(error, "Close")
+                })
+        
+        
     }
 
     RefreshUser()

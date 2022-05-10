@@ -6,7 +6,7 @@
         <div class="row-padding">
             <h1>{{currentLadderService.ladder.name | titlecase}}</h1>
             <h3 routerLink="..">Back</h3>  
-            <mat-tab-group>
+            <mat-tab-group [(selectedIndex)]="tabIndex">
                 <mat-tab label="Settings"><app-main-settings-tab [modal]="modalReference" [findUserModal]="findUserModalReference"></app-main-settings-tab></mat-tab>
                 <mat-tab label="Admins"><app-admin-tab [modal]="modalReference" [findUserModal]="findUserModalReference"></app-admin-tab></mat-tab>
                 <mat-tab label="Users"><app-user-tab [modal]="modalReference" [findUserModal]="findUserModalReference"></app-user-tab></mat-tab>
