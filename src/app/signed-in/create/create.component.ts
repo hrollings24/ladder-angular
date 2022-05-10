@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { LadderHandlerService } from 'src/app/SDK/ladders/ladder-handler.service';
 import { Ladder } from 'src/app/SDK/ladders/ladder.model';
 import { MainUserService } from 'src/app/SDK/users/main-user.service';
@@ -25,6 +26,7 @@ export class CreateComponent implements OnInit {
         private mainUserService: MainUserService,
         private ladderHandler: LadderHandlerService,
         private appState: AppStateService,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -50,7 +52,7 @@ export class CreateComponent implements OnInit {
                     {       
                         console.log(this.mainUserService.user)  
                         this.appState.stopLoading()
-                        this.appState.openSnackBar("Operation successful", "Close")
+                        this.router.navigate(['main', 'ladder', form.value.name.replace(/\s/g, "")]);
                     },
                     error: (error) => 
                     { 
