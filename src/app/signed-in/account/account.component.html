@@ -1,0 +1,36 @@
+<app-ladder-modal #content (refreshRequired)="refresh()"></app-ladder-modal>
+<div class="container">
+    <div class="row-padding">
+        <h1>Your Account</h1>
+        <div class="row">
+            <div class="col-max">
+                <ngx-avatar class='avatar' size="100" name={{mainUserService.user.GetFullName()}} src={{mainUserService.user.picture}}></ngx-avatar>
+            </div>
+            <div class="col">
+                <div class="wrapper">
+                    <span class="bookTitle">
+                        {{mainUserService.user.GetFullName()}}<br/>
+                        <h3>{{mainUserService.user.username}}</h3>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button mat-flat-button class="button-padding" color="primary">Change Username</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button mat-flat-button class="button-padding" color="primary">Change Profile Image</button>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col">
+                <button mat-flat-button class="button-padding" color="primary">Save Changes</button>
+                <button mat-flat-button class="button-padding" color="warn">Delete Account</button>
+            </div>
+        </div>
+    </div>
+</div>

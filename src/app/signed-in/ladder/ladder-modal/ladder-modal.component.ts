@@ -1,5 +1,6 @@
 import { DataSource } from '@angular/cdk/collections';
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, OnInit, Output, QueryList, TemplateRef, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LadderHandlerService } from 'src/app/SDK/ladders/ladder-handler.service';
 import { Ladder } from 'src/app/SDK/ladders/ladder.model';
@@ -7,6 +8,8 @@ import { LadderUser } from 'src/app/SDK/users/ladder-user.model';
 import { MainUserService } from 'src/app/SDK/users/main-user.service';
 import { AppStateService } from 'src/app/shared/app-state.service';
 import { CurrentLadderService } from '../current-ladder.service';
+import { ModalContentComponent } from './modal-content/modal-content.component';
+import { PermissionComponent } from './setting-forms/permission/permission.component';
 
 @Component({
     selector: 'app-ladder-modal',
@@ -21,19 +24,14 @@ export class LadderModalComponent {
     @ViewChild('content') 
     private modal: ElementRef;
 
+    @ViewChild('modalContent', { static: true }) inner: ModalContentComponent;
+
     public modalInfomation: {
         title: string, 
         message: string,
         showConfirm: boolean,
         data: string
     }
-
-    permissions: string[] = [
-        "Open",
-        "Public, with Requests",
-        "Invitation",
-        "Invitation by Admins Only"
-    ];
 
     constructor(
         private modalService: NgbModal,
@@ -77,6 +75,7 @@ export class LadderModalComponent {
 
 
     openSettingChange(setting: string, data: string) {
+        console.log(this.modal)
         if (setting == "permission")
         {
             this.modalInfomation = {
@@ -153,129 +152,32 @@ export class LadderModalComponent {
         this.modalService.open(this.modal);
     }
 
-    confirmChange(title: string, data: string)
+    openAccountChange(setting: string, data: string) {
+        if (setting == "username")
+        {
+            this.modalInfomation = {
+                'title': 'Change Username', 
+                'message': '',
+                'showConfirm': true,
+                'data': data
+            }
+        }
+        else if (setting == "picture")
+        {
+            this.modalInfomation = {
+                'title': 'Change Picture', 
+                'message': '',
+                'showConfirm': true,
+                'data': data
+            }
+        } 
+
+        this.modalService.open(this.modal);
+
+    }
+
+    confirmChange(title: string, data: string, ref: ModalContentComponent)
     {
-        console.log(title)
-        this.appState.startLoading()
-        if (title == "Accept Request")
-        {
-            this.ladderHandler.AcceptRequest(JSON.parse(data)).then((result) => {
-                if (result.length == 0)
-                {
-                    //refresh data
-                    this.refreshRequired.emit(true);
-                }
-                else
-                {
-                    this.appState.openSnackBar(result, "close")
-                    this.appState.stopLoading()
-                }
-            })
-        }
-        else if (title == "Remove User")
-        {
-            this.ladderHandler.RemoveUserFromLadder(JSON.parse(data)).then((result) => {
-                if (result.length == 0)
-                {
-                    //refresh data
-                    this.refreshRequired.emit(true);
-                }
-                else
-                {
-                    this.appState.openSnackBar(result, "close")
-                    this.appState.stopLoading()
-                }
-            })
-        }
-        else if (title == "Decline Request")
-        {
-            this.ladderHandler.DeclineRequest(JSON.parse(data)).then((result) => {
-                if (result.length == 0)
-                {
-                    //refresh data
-                    this.refreshRequired.emit(true);
-                }
-                else
-                {
-                    this.appState.openSnackBar(result, "close")
-                    this.appState.stopLoading()
-                }
-            })
-        }
-        else if (title == "Remove Invite")
-        {
-            this.ladderHandler.DeleteInvite(JSON.parse(data)).then((result) => {
-                if (result.length == 0)
-                {
-                    //refresh data
-                    this.refreshRequired.emit(true);
-                }
-                else
-                {
-                    this.appState.openSnackBar(result, "close")
-                    this.appState.stopLoading()
-                }
-            })
-        }
-        else if (title == "Remove Admin")
-        {
-            this.ladderHandler.RemoveAdmin(JSON.parse(data)).then((result) => {
-                if (result.length == 0)
-                {
-                    //refresh data
-                    this.refreshRequired.emit(true);
-                }
-                else
-                {
-                    this.appState.openSnackBar(result, "close")
-                    this.appState.stopLoading()
-                }
-            })
-        }
-        else if (title == "Confirm Withdrawal")
-        {
-            this.ladderHandler.WithdrawFromLadder(JSON.parse(data)).then((result) => {
-                if (result.length == 0)
-                {
-                    //refresh
-                    if (this.currentLadderService.ladder.adminIDs.includes(this.mainUserService.user.userID))
-                    {
-                        //refresh data
-                        this.refreshRequired.emit(true);
-                    }
-                    else
-                    {
-                        //go back to previous page if not admin
-                        //NEEDS IMPLEMENTING
-                    }
-                    
-                }
-                else
-                {
-                    this.appState.openSnackBar(result, "close")
-                    this.appState.stopLoading()
-                }
-            })
-        }
-        else if (title == "Confirm Challenge")
-        {
-            this.ladderHandler.CreateChallenge(JSON.parse(data)).then((result) => {
-                if (result.length == 0)
-                {
-                    //refresh data
-                    this.refreshRequired.emit(true);
-                }
-                else
-                {
-                    this.appState.openSnackBar(result, "close")
-                    this.appState.stopLoading()
-                }
-            })
-        }
-        else if (title == "Change Permissions")
-        {
-            //get reference to form
-            
-        }
+        ref.confirmChange(title, data)
     }
 }

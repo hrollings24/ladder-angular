@@ -68,6 +68,11 @@ import { AuthGuard } from './auth-guard.service';
 import { NotificationMainPageComponent } from './signed-in/notifications/notification-main-page/notification-main-page.component';
 import { FindLadderComponent } from './signed-in/find-ladder/find-ladder.component';
 import { LadderAdderComponent } from './signed-in/find-ladder/ladder-adder/ladder-adder.component';
+import { PermissionComponent } from './signed-in/ladder/ladder-modal/setting-forms/permission/permission.component';
+import { JumpComponent } from './signed-in/ladder/ladder-modal/setting-forms/jump/jump.component';
+import { NameComponent } from './signed-in/ladder/ladder-modal/setting-forms/name/name.component';
+import { ModalContentComponent } from './signed-in/ladder/ladder-modal/modal-content/modal-content.component';
+import { AccountComponent } from './signed-in/account/account.component';
 
 
 @NgModule({
@@ -101,7 +106,12 @@ import { LadderAdderComponent } from './signed-in/find-ladder/ladder-adder/ladde
     FivePlayOutComponent,
     NotificationMainPageComponent,
     FindLadderComponent,
-    LadderAdderComponent
+    LadderAdderComponent,
+    PermissionComponent,
+    JumpComponent,
+    NameComponent,
+    ModalContentComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

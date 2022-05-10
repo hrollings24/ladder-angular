@@ -1,0 +1,14 @@
+<form class="example-form" #permissionsForm="ngForm">         
+    <div class="row">
+        <div class="col">
+            <mat-form-field appearance="fill">
+                <mat-label>Permissions</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let permission of permissions" [value]="permission" ngModel>
+                    {{permission}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div> 
+</form>

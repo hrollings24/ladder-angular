@@ -3,46 +3,8 @@
         <h4 class="modal-title" id="modal-basic-title">{{modalInfomation.title}}</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
     </div>
-    <div class="modal-body">
-        <div *ngIf="modalInfomation.title == 'Change Permissions'">
-            <form class="example-form">         
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Permissions</mat-label>
-                            <mat-select>
-                                <mat-option *ngFor="let permission of permissions" [value]="permission">
-                                {{permission}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div> 
-            </form>
-        </div>
-        <div *ngIf="modalInfomation.title == 'Change Jump'">
-            <form class="example-form">         
-                <div class="row">
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Enter Jump</mat-label>
-                        <input matInput placeholder="" value="">
-                    </mat-form-field>
-                </div>
-            </form>
-        </div>
-        <div *ngIf="modalInfomation.title == 'Change Name'">
-            <form class="example-form">         
-                <div class="row">
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Enter Name</mat-label>
-                        <input matInput placeholder="" value="">
-                    </mat-form-field>
-                </div>
-            </form>
-        </div>
-        <h3 *ngIf="modalInfomation.message">{{modalInfomation.message}}</h3>
-    </div>
+    <app-modal-content [message]="modalInfomation.message" [title]="modalInfomation.title" #modalContent></app-modal-content>
     <div class="modal-footer" *ngIf="modalInfomation.showConfirm">
-      <button type="button" class="btn btn-outline-dark" (click)="[c('Save click'), confirmChange(modalInfomation.title, modalInfomation.data)]">Confirm</button>
+    <button type="button" class="btn btn-outline-dark" (click)="[c('Save click'), confirmChange(modalInfomation.title, modalInfomation.data, modalContent)]">Confirm</button>
     </div>
 </ng-template>
