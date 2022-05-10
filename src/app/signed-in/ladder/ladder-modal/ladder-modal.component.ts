@@ -103,6 +103,15 @@ export class LadderModalComponent {
                 'data': data
             }
         }
+        else if (setting == "delete")
+        {
+            this.modalInfomation = {
+                'title': 'Delete Ladder', 
+                'message': 'Please confirm you wish to delete this ladder',
+                'showConfirm': true,
+                'data': data
+            }
+        }
         else if (setting == "Remove User")
         {
             this.modalInfomation = {

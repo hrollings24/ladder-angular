@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentData, DocumentReference } from '@angular/fire/compat/firestore';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, throwError } from 'rxjs';
 import { Ladder } from 'src/app/SDK/ladders/ladder.model';
 import { LadderService } from 'src/app/SDK/ladders/ladder.service';
@@ -34,9 +34,10 @@ export class SettingsComponent extends BaseLadderComponent implements OnInit{
         currentLadderService: CurrentLadderService,
         appState: AppStateService,
         private systemNotificationService: SystemNotificationService,
-        ladderService: LadderService
+        ladderService: LadderService,
+        router: Router
     ) { 
-        super(ladderService)
+        super(ladderService, router)
         config.backdrop = 'static';
         config.keyboard = false;
         this.ladderUserService = ladderUserService
@@ -48,7 +49,7 @@ export class SettingsComponent extends BaseLadderComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        this.targetLoadedCount = 4
+        this.targetLoadedCount = 3
         this.loadedCount = 0
         this.appState.startLoading()
 
@@ -81,14 +82,16 @@ export class SettingsComponent extends BaseLadderComponent implements OnInit{
         console.log(this.modalReference)
     }
 
-    refreshLadder()
+    refreshLadder(goHomeParam: boolean)
     {
+        console.log(goHomeParam)
+        this.goHome = !goHomeParam
         this.ngOnDestroy()
         console.log(this.currentLadderService.ladder)
         this.mainUserService.refresh().subscribe({
             complete: () => 
             { 
-                this.targetLoadedCount = 4
+                this.targetLoadedCount = 3
                 this.loadedCount = 0
         
                 this.appState.openSnackBar("Operation successful", "Close")
@@ -121,7 +124,7 @@ export class SettingsComponent extends BaseLadderComponent implements OnInit{
                     this.loadedCount++
                     if (this.loadedCount == this.targetLoadedCount)
                     {
-                        this.appState.stopLoading();
+                        this.finishedLoading()
                     }
                 }
             })
@@ -134,7 +137,7 @@ export class SettingsComponent extends BaseLadderComponent implements OnInit{
             this.loadedCount++
             if (this.loadedCount == this.targetLoadedCount)
             {
-                this.appState.stopLoading();
+                this.finishedLoading()
             }
         }
     }
@@ -152,7 +155,7 @@ export class SettingsComponent extends BaseLadderComponent implements OnInit{
                     this.loadedCount++
                     if (this.loadedCount == this.targetLoadedCount)
                     {
-                        this.appState.stopLoading();
+                        this.finishedLoading()
                     }    
                 }
             })
@@ -165,7 +168,7 @@ export class SettingsComponent extends BaseLadderComponent implements OnInit{
             this.loadedCount++
             if (this.loadedCount == this.targetLoadedCount)
             {
-                this.appState.stopLoading();
+                this.finishedLoading()
             } 
         }
     }
@@ -191,7 +194,7 @@ export class SettingsComponent extends BaseLadderComponent implements OnInit{
                         this.loadedCount++
                         if (this.loadedCount == this.targetLoadedCount)
                         {
-                            this.appState.stopLoading();
+                            this.finishedLoading()
                         } 
                     }
                 })
@@ -204,11 +207,13 @@ export class SettingsComponent extends BaseLadderComponent implements OnInit{
                 this.loadedCount++
                 if (this.loadedCount == this.targetLoadedCount)
                 {
-                    this.appState.stopLoading();
+                    this.finishedLoading()
                 }
             }
         })
     }
   
+
+   
 
 }

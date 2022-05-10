@@ -1,5 +1,5 @@
-<app-ladder-modal #content (refreshRequired)="refreshLadder()"></app-ladder-modal>
-<app-find-user-modal #findUserModal (refreshRequired)="refreshLadder()"></app-find-user-modal>
+<app-ladder-modal #content (refreshRequired)="refreshLadder($event)"></app-ladder-modal>
+<app-find-user-modal #findUserModal (refreshRequired)="refreshLadder($event)"></app-find-user-modal>
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
 <div *ngIf="currentLadderService.ladder !== null">
     <div class="container">

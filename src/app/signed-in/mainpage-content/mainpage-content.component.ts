@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainUserService } from 'src/app/SDK/users/main-user.service';
+import { AppStateService } from 'src/app/shared/app-state.service';
 
 @Component({
     selector: 'app-mainpage-content',
@@ -11,6 +12,7 @@ export class MainpageContentComponent implements OnInit {
 
     constructor(
         private mainUserService: MainUserService,
+        private appState: AppStateService,
         private router: Router
     ) 
     { }

@@ -19,9 +19,14 @@ export abstract class BaseTab{
     actionSettingChange(setting: string)
     {
         console.log(setting)
+        var data = ""
 
         //send data as json string
-        this.currentLadderService.openSettingModal(setting, this.modal, "")
+        if (setting == "delete")
+        {
+            data = JSON.stringify({"ladderID": this.currentLadderService.ladder.reference.id})
+        }
+        this.currentLadderService.openSettingModal(setting, this.modal, data)
     }
 
     openFindUserModal(operation: string)
