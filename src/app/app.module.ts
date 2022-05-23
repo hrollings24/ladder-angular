@@ -73,6 +73,8 @@ import { JumpComponent } from './signed-in/ladder/ladder-modal/setting-forms/jum
 import { NameComponent } from './signed-in/ladder/ladder-modal/setting-forms/name/name.component';
 import { ModalContentComponent } from './signed-in/ladder/ladder-modal/modal-content/modal-content.component';
 import { AccountComponent } from './signed-in/account/account.component';
+import { UsernameComponent } from './signed-in/ladder/ladder-modal/setting-forms/username/username.component';
+import { PictureComponent } from './signed-in/ladder/ladder-modal/setting-forms/picture/picture.component';
 
 
 @NgModule({
@@ -111,7 +113,9 @@ import { AccountComponent } from './signed-in/account/account.component';
     JumpComponent,
     NameComponent,
     ModalContentComponent,
-    AccountComponent
+    AccountComponent,
+    UsernameComponent,
+    PictureComponent
   ],
   imports: [
     BrowserModule,

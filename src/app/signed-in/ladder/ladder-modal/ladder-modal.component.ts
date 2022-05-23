@@ -20,6 +20,9 @@ import { PermissionComponent } from './setting-forms/permission/permission.compo
 export class LadderModalComponent {
 
     @Output() refreshRequired: EventEmitter<boolean> = new EventEmitter();
+    @Output() newUsernameEmit: EventEmitter<any> = new EventEmitter();
+    @Output() newPictureEmit: EventEmitter<any> = new EventEmitter();
+
 
     @ViewChild('content') 
     private modal: ElementRef;
@@ -185,8 +188,26 @@ export class LadderModalComponent {
 
     }
 
+    refreshPage(boolValue: any)
+    {
+        console.log("whppppss")
+        this.refreshRequired.emit(boolValue)
+    }
+
     confirmChange(title: string, data: string, ref: ModalContentComponent)
     {
         ref.confirmChange(title, data)
+    }
+
+    sendUsername(newUsername: any)
+    {
+        console.log(newUsername)
+        this.newUsernameEmit.emit(newUsername);
+    }
+
+    sendPicture(newPicture: any)
+    {
+        this.newPictureEmit.emit(newPicture);
+
     }
 }

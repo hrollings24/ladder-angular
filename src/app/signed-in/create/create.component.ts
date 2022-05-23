@@ -34,6 +34,7 @@ export class CreateComponent implements OnInit {
 
     CreateLadder(form: NgForm)
     {
+        console.log(form.value)
         this.appState.startLoading()
         //validation has passed as button is disabled until met
         var data = JSON.stringify({"permission": form.value.permission,

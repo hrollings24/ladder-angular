@@ -3,7 +3,7 @@
         <h4 class="modal-title" id="modal-basic-title">{{modalInfomation.title}}</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
     </div>
-    <app-modal-content [message]="modalInfomation.message" [title]="modalInfomation.title" #modalContent></app-modal-content>
+    <app-modal-content (emitPicture)="sendPicture($event)" (emitUsername)="sendUsername($event)" (shouldRefresh)="refreshPage($event)" [message]="modalInfomation.message" [title]="modalInfomation.title" #modalContent></app-modal-content>
     <div class="modal-footer" *ngIf="modalInfomation.showConfirm">
     <button type="button" class="btn btn-outline-dark" (click)="[c('Save click'), confirmChange(modalInfomation.title, modalInfomation.data, modalContent)]">Confirm</button>
     </div>

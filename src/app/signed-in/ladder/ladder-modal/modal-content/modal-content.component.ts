@@ -11,6 +11,8 @@ import { CurrentLadderService } from '../../current-ladder.service';
 import { JumpComponent } from '../setting-forms/jump/jump.component';
 import { NameComponent } from '../setting-forms/name/name.component';
 import { PermissionComponent } from '../setting-forms/permission/permission.component';
+import { PictureComponent } from '../setting-forms/picture/picture.component';
+import { UsernameComponent } from '../setting-forms/username/username.component';
 
 @Component({
   selector: 'app-modal-content',
@@ -19,7 +21,9 @@ import { PermissionComponent } from '../setting-forms/permission/permission.comp
 })
 export class ModalContentComponent implements OnInit, AfterViewInit {
 
-  @Output() refreshRequired: EventEmitter<boolean> = new EventEmitter();
+  @Output('shouldRefresh') shouldRefresh: EventEmitter<any> = new EventEmitter();
+  @Output('emitUsername') emitUsername: EventEmitter<any> = new EventEmitter();
+  @Output('emitPicture') emitPicture: EventEmitter<any> = new EventEmitter();
 
   @Input() message: string
   @Input() title: string
@@ -53,14 +57,14 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
   confirmChange(title: string, data: string)
     {
         console.log(title)
-        this.appState.startLoading()
         if (title == "Accept Request")
         {
+            this.appState.startLoading()
             this.ladderHandler.AcceptRequest(JSON.parse(data)).then((result) => {
                 if (result.length == 0)
                 {
                     //refresh data
-                    this.refreshRequired.emit(true);
+                    this.shouldRefresh.emit(true);
                 }
                 else
                 {
@@ -71,11 +75,12 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
         }
         else if (title == "Remove User")
         {
+            this.appState.startLoading()
             this.ladderHandler.RemoveUserFromLadder(JSON.parse(data)).then((result) => {
                 if (result.length == 0)
                 {
                     //refresh data
-                    this.refreshRequired.emit(true);
+                    this.shouldRefresh.emit(true);
                 }
                 else
                 {
@@ -86,11 +91,12 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
         }
         else if (title == "Decline Request")
         {
+            this.appState.startLoading()
             this.ladderHandler.DeclineRequest(JSON.parse(data)).then((result) => {
                 if (result.length == 0)
                 {
                     //refresh data
-                    this.refreshRequired.emit(true);
+                    this.shouldRefresh.emit(true);
                 }
                 else
                 {
@@ -101,11 +107,12 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
         }
         else if (title == "Remove Invite")
         {
+            this.appState.startLoading()
             this.ladderHandler.DeleteInvite(JSON.parse(data)).then((result) => {
                 if (result.length == 0)
                 {
                     //refresh data
-                    this.refreshRequired.emit(true);
+                    this.shouldRefresh.emit(true);
                 }
                 else
                 {
@@ -116,11 +123,12 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
         }
         else if (title == "Remove Admin")
         {
+            this.appState.startLoading()
             this.ladderHandler.RemoveAdmin(JSON.parse(data)).then((result) => {
                 if (result.length == 0)
                 {
                     //refresh data
-                    this.refreshRequired.emit(true);
+                    this.shouldRefresh.emit(true);
                 }
                 else
                 {
@@ -131,6 +139,7 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
         }
         else if (title == "Confirm Withdrawal")
         {
+            this.appState.startLoading()
             this.ladderHandler.WithdrawFromLadder(JSON.parse(data)).then((result) => {
                 if (result.length == 0)
                 {
@@ -138,14 +147,13 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
                     if (this.currentLadderService.ladder.adminIDs.includes(this.mainUserService.user.userID))
                     {
                         //refresh data
-                        this.refreshRequired.emit(true);
+                        this.shouldRefresh.emit(true);
                     }
                     else
                     {
                         //go back to previous page if not admin
-                        //NEEDS IMPLEMENTING
+                        this.shouldRefresh.emit(false);
                     }
-                    
                 }
                 else
                 {
@@ -156,11 +164,12 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
         }
         else if (title == "Confirm Challenge")
         {
+            this.appState.startLoading()
             this.ladderHandler.CreateChallenge(JSON.parse(data)).then((result) => {
                 if (result.length == 0)
                 {
                     //refresh data
-                    this.refreshRequired.emit(true);
+                    this.shouldRefresh.emit(true);
                 }
                 else
                 {
@@ -171,6 +180,7 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
         }
         else if (title == "Change Permissions")
         {
+            this.appState.startLoading()
             //get reference to form
             console.log(this.setting.instance.value)
 
@@ -178,11 +188,14 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
         }
         else if (title == "Delete Ladder")
         {
+            this.appState.startLoading()
             this.ladderHandler.DeleteLadder(JSON.parse(data)).then((result) => {
                 if (result.length == 0)
                 {
+                    console.log("should emiit")
                     //refresh data
-                    this.refreshRequired.emit(false);
+                    this.shouldRefresh.emit(false);
+                    this.emitUsername.emit(false);
                 }
                 else
                 {
@@ -190,6 +203,14 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
                     this.appState.stopLoading()
                 }
             })
+        }
+        else if (title == "Change Username")
+        {
+            this.emitUsername.emit(this.setting.instance.usernameForm.value.username)
+        }
+        else if (title == "Change Picture")
+        {
+            this.emitPicture.emit(this.setting.instance.url)
         }
     }
 
@@ -210,6 +231,16 @@ export class ModalContentComponent implements OnInit, AfterViewInit {
         {
           this.setting = this.challengeFunction.createComponent(NameComponent);
           this.setting.changeDetectorRef.detectChanges();
+        }
+        if (this.title == "Change Username")
+        {
+            this.setting = this.challengeFunction.createComponent(UsernameComponent);
+            this.setting.changeDetectorRef.detectChanges();
+        }
+        if (this.title == "Change Picture")
+        {
+            this.setting = this.challengeFunction.createComponent(PictureComponent);
+            this.setting.changeDetectorRef.detectChanges();
         }
         
     }
